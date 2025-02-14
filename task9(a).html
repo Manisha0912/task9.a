@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Event Handling</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+    }
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <form id="myForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username" />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("myForm");
+
+    // First event listener for form submission
+    form.addEventListener("submit", (event) => {
+      // Prevent the default behavior (form submission)
+    //   Instead of navigating to another page, you can display the submitted data, 
+    //   log it, or process it dynamically on the same page.
+      event.preventDefault();
+
+      // Stop propagation to parent handlers
+      event.stopPropagation();
+
+      // Stop execution of other event listeners on the same element
+      event.stopImmediatePropagation();
+
+      // Using a short-circuit operator to provide fallback for empty inputs
+      const username = document.getElementById("username").value || "hi";
+      const email = document.getElementById("email").value || "hello";
+
+      console.log("Form Submitted:");
+      console.log("Username:", username);
+      console.log("Email:", email);
+
+      alert(`Form Submitted!\nUsername: ${username}\nEmail: ${email}`);
+    });
+
+    // Second event listener to demonstrate stopImmediatePropagation
+    form.addEventListener("submit", () => {
+      console.log("This will not run because of stopImmediatePropagation.");
+    });
+  </script>
+</body>
+</html>
